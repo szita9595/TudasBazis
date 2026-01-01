@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Ha a kért fájl vagy könyvtár létezik, használd közvetlenül
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Minden más kérést irányíts a public/index.php-ra
+RewriteRule ^(.*)$ public/index.php [QSA,L]

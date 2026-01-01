@@ -1,0 +1,973 @@
+/* ============================================
+   TudásBázis - Gyakorikerdesek.hu Clone CSS
+   1:1 arányú UI implementáció
+   ============================================ */
+
+/* CSS Reset és alap beállítások */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-blue: #2c5aa0;
+    --primary-blue-dark: #1e4080;
+    --primary-blue-light: #4a7cc4;
+    --link-blue: #0066cc;
+    --link-hover: #004499;
+    --text-dark: #333333;
+    --text-gray: #666666;
+    --text-light: #888888;
+    --bg-white: #ffffff;
+    --bg-light: #f5f5f5;
+    --bg-gray: #eeeeee;
+    --border-light: #dddddd;
+    --border-gray: #cccccc;
+    --success-green: #28a745;
+    --error-red: #dc3545;
+    --warning-orange: #ffc107;
+}
+
+html {
+    font-size: 13px;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-dark);
+    background-color: var(--bg-white);
+}
+
+a {
+    color: var(--link-blue);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.site-header {
+    background: linear-gradient(180deg, #4a7cc4 0%, #2c5aa0 100%);
+    border-bottom: 1px solid var(--primary-blue-dark);
+    padding: 8px 0;
+}
+
+.header-container {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-white);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--primary-blue);
+    font-size: 18px;
+}
+
+.logo-text {
+    color: var(--bg-white);
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.logo-text:hover {
+    text-decoration: none;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-nav a {
+    color: var(--bg-white);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.header-nav a:hover {
+    text-decoration: underline;
+}
+
+.header-nav .icon {
+    font-size: 14px;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: 5px 10px;
+    border: 1px solid var(--border-gray);
+    border-radius: 3px 0 0 3px;
+    font-size: 12px;
+    width: 180px;
+}
+
+.search-btn {
+    padding: 5px 10px;
+    background: var(--bg-light);
+    border: 1px solid var(--border-gray);
+    border-left: none;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background: var(--bg-gray);
+}
+
+/* ============================================
+   LAYOUT - Kétoszlopos elrendezés
+   ============================================ */
+.main-container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    gap: 15px;
+}
+
+/* Bal oldali sidebar */
+.sidebar {
+    width: 180px;
+    flex-shrink: 0;
+}
+
+/* Fő tartalom */
+.main-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ============================================
+   SIDEBAR - Kategória menü
+   ============================================ */
+.kategoria-menu {
+    border: 1px solid var(--border-light);
+    background: var(--bg-white);
+}
+
+.kategoria-menu-cim {
+    display: none;
+}
+
+.kategoria-lista {
+    list-style: none;
+}
+
+.kategoria-item {
+    border-bottom: 1px solid var(--bg-light);
+}
+
+.kategoria-item:last-child {
+    border-bottom: none;
+}
+
+.kategoria-link {
+    display: block;
+    padding: 6px 10px;
+    color: var(--link-blue);
+    font-size: 12px;
+}
+
+.kategoria-link:hover {
+    background: var(--bg-light);
+    text-decoration: underline;
+}
+
+.kategoria-link.aktiv {
+    background: var(--primary-blue);
+    color: var(--bg-white);
+}
+
+/* Felhasználó menü (bejelentkezve) */
+.user-menu {
+    border: 1px solid var(--border-light);
+    margin-bottom: 10px;
+    background: var(--bg-white);
+}
+
+.user-menu-header {
+    background: var(--primary-blue);
+    color: var(--bg-white);
+    padding: 8px 10px;
+    font-weight: bold;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-menu-badge {
+    background: var(--error-red);
+    color: var(--bg-white);
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 10px;
+}
+
+.user-menu-lista {
+    list-style: none;
+}
+
+.user-menu-item {
+    border-bottom: 1px solid var(--bg-light);
+}
+
+.user-menu-item:last-child {
+    border-bottom: none;
+}
+
+.user-menu-link {
+    display: block;
+    padding: 6px 10px;
+    color: var(--link-blue);
+    font-size: 12px;
+}
+
+.user-menu-link:hover {
+    background: var(--bg-light);
+}
+
+/* ============================================
+   FŐ TARTALOM
+   ============================================ */
+.page-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    font-size: 11px;
+    color: var(--text-gray);
+    margin-bottom: 10px;
+}
+
+.breadcrumb a {
+    color: var(--link-blue);
+}
+
+.breadcrumb span {
+    margin: 0 5px;
+}
+
+/* Flash üzenetek */
+.flash-message {
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.flash-success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.flash-error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.flash-warning {
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+}
+
+/* ============================================
+   STATISZTIKÁK (Jobb oldali box főoldalon)
+   ============================================ */
+.stat-box {
+    border: 2px solid var(--primary-blue);
+    background: var(--bg-white);
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.stat-box-title {
+    color: var(--primary-blue);
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stat-box-subtitle {
+    color: var(--text-gray);
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+.stat-item {
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.stat-number {
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.stat-box-cta {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-light);
+}
+
+.stat-box-cta-title {
+    font-weight: bold;
+    font-size: 13px;
+    color: var(--text-dark);
+}
+
+.stat-box-cta-text {
+    color: var(--link-blue);
+    font-size: 12px;
+}
+
+/* ============================================
+   NÉPSZERŰ TÉMÁK (Tag cloud)
+   ============================================ */
+.tag-cloud {
+    padding: 15px;
+    border: 1px solid var(--border-light);
+    margin-bottom: 15px;
+}
+
+.tag-cloud-title {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.tag-cloud-lista {
+    line-height: 1.8;
+}
+
+.tag-cloud-lista a {
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+/* ============================================
+   KÉRDÉS LISTA
+   ============================================ */
+.kerdes-section {
+    margin-bottom: 20px;
+}
+
+.kerdes-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--primary-blue);
+    color: var(--bg-white);
+    padding: 8px 10px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.kerdes-section-title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.kerdes-section-more {
+    color: var(--bg-white);
+    font-size: 11px;
+    font-weight: normal;
+}
+
+.kerdes-lista {
+    border: 1px solid var(--border-light);
+    border-top: none;
+}
+
+.kerdes-item {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--bg-light);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.kerdes-item:last-child {
+    border-bottom: none;
+}
+
+.kerdes-ikon {
+    width: 20px;
+    height: 20px;
+    background: var(--bg-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--primary-blue);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.kerdes-tartalom {
+    flex: 1;
+    min-width: 0;
+}
+
+.kerdes-cim {
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+
+.kerdes-cim a {
+    color: var(--link-blue);
+}
+
+.kerdes-meta {
+    font-size: 11px;
+    color: var(--text-light);
+}
+
+.kerdes-meta a {
+    color: var(--text-gray);
+}
+
+.kerdes-valaszok {
+    background: var(--bg-light);
+    border: 1px solid var(--border-light);
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--text-dark);
+    flex-shrink: 0;
+}
+
+.kerdes-valaszok.van-valasz {
+    background: var(--primary-blue);
+    border-color: var(--primary-blue);
+    color: var(--bg-white);
+}
+
+/* ============================================
+   KÉRDÉS RÉSZLETEK
+   ============================================ */
+.kerdes-reszletek {
+    border: 1px solid var(--border-light);
+    margin-bottom: 20px;
+}
+
+.kerdes-reszletek-header {
+    background: var(--bg-light);
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.kerdes-reszletek-cim {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.kerdes-reszletek-meta {
+    font-size: 11px;
+    color: var(--text-gray);
+}
+
+.kerdes-reszletek-tartalom {
+    padding: 15px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* ============================================
+   VÁLASZOK
+   ============================================ */
+.valaszok-section {
+    margin-bottom: 20px;
+}
+
+.valaszok-header {
+    background: var(--primary-blue);
+    color: var(--bg-white);
+    padding: 8px 10px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.valasz-item {
+    border: 1px solid var(--border-light);
+    border-top: none;
+    padding: 15px;
+}
+
+.valasz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.valasz-szerzo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.valasz-szerzo-avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--bg-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--text-gray);
+}
+
+.valasz-szerzo-info {
+    font-size: 12px;
+}
+
+.valasz-szerzo-nev {
+    font-weight: bold;
+    color: var(--link-blue);
+}
+
+.valasz-szerzo-reputacio {
+    color: var(--text-gray);
+    font-size: 11px;
+}
+
+.valasz-szavazatok {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.szavazat-gomb {
+    padding: 5px 10px;
+    border: 1px solid var(--border-gray);
+    background: var(--bg-white);
+    cursor: pointer;
+    font-size: 11px;
+    border-radius: 3px;
+}
+
+.szavazat-gomb:hover {
+    background: var(--bg-light);
+}
+
+.szavazat-gomb.hasznos:hover {
+    background: #d4edda;
+    border-color: var(--success-green);
+}
+
+.szavazat-gomb.nem-hasznos:hover {
+    background: #f8d7da;
+    border-color: var(--error-red);
+}
+
+.szavazat-szam {
+    font-size: 12px;
+    color: var(--text-gray);
+}
+
+.valasz-tartalom {
+    font-size: 13px;
+    line-height: 1.6;
+    padding-left: 50px;
+}
+
+.valasz-datum {
+    font-size: 11px;
+    color: var(--text-light);
+    padding-left: 50px;
+    margin-top: 10px;
+}
+
+/* ============================================
+   VÁLASZ FORM
+   ============================================ */
+.valasz-form-section {
+    border: 1px solid var(--border-light);
+    margin-bottom: 20px;
+}
+
+.valasz-form-header {
+    background: var(--bg-light);
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.valasz-form {
+    padding: 15px;
+}
+
+.valasz-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 10px;
+    border: 1px solid var(--border-gray);
+    font-family: inherit;
+    font-size: 13px;
+    resize: vertical;
+}
+
+.valasz-textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+}
+
+/* ============================================
+   ŰRLAPOK
+   ============================================ */
+.form-container {
+    max-width: 450px;
+}
+
+.form-box {
+    border: 1px solid var(--border-light);
+    margin-bottom: 20px;
+}
+
+.form-box-header {
+    background: var(--bg-light);
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border-light);
+    text-align: center;
+}
+
+.form-box-content {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border-gray);
+    font-size: 13px;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+}
+
+.form-select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border-gray);
+    font-size: 13px;
+    background: var(--bg-white);
+}
+
+.form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.form-checkbox input {
+    margin-top: 2px;
+}
+
+.form-radio-group {
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+}
+
+.form-radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.form-error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.form-submit {
+    background: var(--primary-blue);
+    color: var(--bg-white);
+    border: none;
+    padding: 10px 25px;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.form-submit:hover {
+    background: var(--primary-blue-dark);
+}
+
+.form-link {
+    font-size: 12px;
+    color: var(--link-blue);
+}
+
+.form-separator {
+    margin: 20px 0;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-gray);
+}
+
+/* ============================================
+   BEJELENTKEZÉS OLDAL
+   ============================================ */
+.auth-container {
+    display: flex;
+    gap: 30px;
+}
+
+.auth-box {
+    flex: 1;
+    border: 1px solid var(--border-light);
+}
+
+.auth-box-header {
+    background: var(--bg-light);
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 12px;
+    border-bottom: 1px solid var(--border-light);
+    text-align: center;
+}
+
+.auth-box-content {
+    padding: 20px;
+}
+
+.auth-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: var(--bg-light);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.auth-info p {
+    margin-bottom: 10px;
+}
+
+.auth-info ul {
+    margin-left: 20px;
+}
+
+/* ============================================
+   PROFIL OLDAL
+   ============================================ */
+.profil-header {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid var(--border-light);
+    margin-bottom: 20px;
+}
+
+.profil-avatar {
+    width: 80px;
+    height: 80px;
+    background: var(--bg-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: var(--text-gray);
+}
+
+.profil-info h1 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.profil-stat {
+    font-size: 13px;
+    color: var(--text-gray);
+    margin-bottom: 3px;
+}
+
+.profil-reputacio {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--primary-blue);
+}
+
+/* ============================================
+   KERESÉSI EREDMÉNYEK
+   ============================================ */
+.kereses-form {
+    margin-bottom: 20px;
+}
+
+.kereses-input-container {
+    display: flex;
+    gap: 10px;
+}
+
+.kereses-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--border-gray);
+    font-size: 14px;
+}
+
+.kereses-submit {
+    padding: 10px 20px;
+    background: var(--primary-blue);
+    color: var(--bg-white);
+    border: none;
+    cursor: pointer;
+}
+
+.kereses-info {
+    color: var(--text-gray);
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+/* ============================================
+   LAPOZÁS
+   ============================================ */
+.pagination {
+    display: flex;
+    gap: 5px;
+    margin: 20px 0;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid var(--border-gray);
+    font-size: 12px;
+}
+
+.pagination a {
+    color: var(--link-blue);
+}
+
+.pagination a:hover {
+    background: var(--bg-light);
+    text-decoration: none;
+}
+
+.pagination .aktiv {
+    background: var(--primary-blue);
+    color: var(--bg-white);
+    border-color: var(--primary-blue);
+}
+
+/* ============================================
+   UTILITY
+   ============================================ */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.site-footer {
+    border-top: 1px solid var(--border-light);
+    padding: 20px 0;
+    margin-top: 30px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-gray);
+}
+
+.site-footer a {
+    color: var(--link-blue);
+}

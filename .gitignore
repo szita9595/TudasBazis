@@ -1,0 +1,26 @@
+# Függőségek
+/vendor/
+
+# Környezeti változók - SOHA NE KERÜLJÖN FEL!
+.env
+.env.local
+.env.*.local
+
+# Logok
+*.log
+logs/
+
+# IDE és rendszer fájlok
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Cache
+*.cache
+/cache/
+
+# Composer
+composer.phar
