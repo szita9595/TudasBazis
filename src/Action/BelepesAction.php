@@ -40,9 +40,10 @@ class BelepesAction
             } else {
                 $email = trim($request->post('email', ''));
                 $jelszo = $request->post('jelszo', '');
+                $emlekezz = $request->post('emlekezz') === '1';
 
                 try {
-                    $this->authService->bejelentkezik($email, $jelszo);
+                    $this->authService->bejelentkezik($email, $jelszo, $emlekezz);
                     $this->session->flash('success', 'Sikeres bejelentkezés!');
                     return (new Response())->redirect('/');
                 } catch (\RuntimeException $e) {

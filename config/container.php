@@ -14,6 +14,7 @@ use App\View\ViewRenderer;
 // Domain Services
 use App\Domain\Felhasznalo\FelhasznaloRepository;
 use App\Domain\Felhasznalo\AuthService;
+use App\Domain\Felhasznalo\RememberMeService;
 use App\Domain\Kategoria\KategoriaRepository;
 use App\Domain\Kategoria\KategoriaService;
 use App\Domain\Kerdes\KerdesRepository;
@@ -94,8 +95,14 @@ $containerBuilder->addDefinitions([
     },
 
     // ========== Services ==========
-    AuthService::class => function (FelhasznaloRepository $repo, Session $session) {
-        return new AuthService($repo, $session);
+    RememberMeService::class => function (Database $db) {
+        return new RememberMeService($db);
+    },
+
+    AuthService::class => function (FelhasznaloRepository $repo, Session $session, RememberMeService $rememberMe) {
+        $auth = new AuthService($repo, $session);
+        $auth->setRememberMeService($rememberMe);
+        return $auth;
     },
 
     KategoriaService::class => function (KategoriaRepository $repo) {

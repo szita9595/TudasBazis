@@ -43,7 +43,7 @@ $adatok = $adatok ?? [];
 
                 <div class="form-group">
                     <label class="form-checkbox">
-                        <input type="checkbox" name="emlekezz">
+                        <input type="checkbox" name="emlekezz" value="1">
                         Belépve maradok
                     </label>
                 </div>

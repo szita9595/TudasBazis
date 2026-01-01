@@ -11,10 +11,20 @@ use App\Core\Session;
  */
 class AuthService
 {
+    private ?RememberMeService $rememberMeService = null;
+
     public function __construct(
         private FelhasznaloRepository $repository,
         private Session $session
     ) {}
+
+    /**
+     * RememberMe szolgáltatás beállítása (opcionális)
+     */
+    public function setRememberMeService(RememberMeService $service): void
+    {
+        $this->rememberMeService = $service;
+    }
 
     /**
      * Új felhasználó regisztrálása
@@ -63,7 +73,7 @@ class AuthService
      * 
      * @throws \RuntimeException ha a bejelentkezés sikertelen
      */
-    public function bejelentkezik(string $email, string $jelszo): FelhasznaloEntity
+    public function bejelentkezik(string $email, string $jelszo, bool $empitenEmlekezz = false): FelhasznaloEntity
     {
         $felhasznalo = $this->repository->findByEmail($email);
 
@@ -82,6 +92,11 @@ class AuthService
         // Session beállítása
         $this->session->setFelhasznaloId($felhasznalo->id);
         
+        // Belépve maradok (Remember Me)
+        if ($empitenEmlekezz && $this->rememberMeService !== null) {
+            $this->rememberMeService->empitenEmlekezz($felhasznalo->id);
+        }
+        
         // Utolsó belépés frissítése
         $this->repository->updateUtolsoBelepes($felhasznalo->id);
 
@@ -93,6 +108,14 @@ class AuthService
      */
     public function kijelentkezik(): void
     {
+        // Remember Me token törlése
+        if ($this->rememberMeService !== null) {
+            $felhasznaloId = $this->session->getFelhasznaloId();
+            if ($felhasznaloId !== null) {
+                $this->rememberMeService->elfelejtFelhasznalo($felhasznaloId);
+            }
+        }
+        
         $this->session->destroy();
     }
 
@@ -102,6 +125,16 @@ class AuthService
     public function aktualisFelhasznalo(): ?FelhasznaloEntity
     {
         $felhasznaloId = $this->session->getFelhasznaloId();
+        
+        // Ha nincs session, próbáljuk a Remember Me cookie-t
+        if ($felhasznaloId === null && $this->rememberMeService !== null) {
+            $felhasznaloId = $this->rememberMeService->azonositCookieAlapjan();
+            
+            // Ha sikerült azonosítani, beállítjuk a session-t is
+            if ($felhasznaloId !== null) {
+                $this->session->setFelhasznaloId($felhasznaloId);
+            }
+        }
         
         if ($felhasznaloId === null) {
             return null;
